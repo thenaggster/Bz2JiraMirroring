@@ -22,12 +22,16 @@
     ocp_component_map = {'Console Kubevirt Plugin':'CNV User Interface'};
     
     bug_component = bug.component[0];
+
+    myBugComponent = null;
     
     if (bug.product == 'Container Native Virtualization (CNV)') {
-        bug_component ? cnv_component_map[bug_component] : null;
+        myBugComponent = (bug_component ? cnv_component_map[bug_component] : null);
     } else {
         if (bug.product == 'OpenShift Container Platform') {
-            bug_component ? ocp_component_map[bug_component] : null;
+            myBugComponent = (bug_component ? ocp_component_map[bug_component] : null);
         }
     };
+
+    myBugComponent;
 }

@@ -14,5 +14,7 @@
     
     buglabels.add(bug.cf_internal_whiteboard);
     
-    buglabels.add('cnvbugsm'); buglabels;
+    buglabels.add('cnvbugsm');
+    
+    buglabels;
 }

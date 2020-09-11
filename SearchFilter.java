@@ -15,8 +15,8 @@
     ocp_components_to_match =  ['Console Kubevirt Plugin'];
     components_to_match = [];
     
-    cnv_targeted_releases = ['2.5.0'];
-    ocp_targeted_releases = ['4.6.0'];
+    cnv_targeted_releases = ['2.5.0','2.6.0'];
+    ocp_targeted_releases = ['4.6.0','4.7.0'];
     targeted_releases = [];
     
     if (bug.product == 'Container Native Virtualization (CNV)'){

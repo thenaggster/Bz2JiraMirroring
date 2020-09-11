@@ -28,9 +28,13 @@
         'MODIFIED':'Code Review'
     };
     
+    myBugStatus = null;
+
     if (bug.status == 'CLOSED'){
-        bzresol2jira[bug.resolution] ? bzresol2jira[bug.resolution] : null
+        myBugStatus = (bzresol2jira[bug.resolution] ? bzresol2jira[bug.resolution] : 'CLOSED')
     } else {
-        bzstat2jira[bug.status] ? bzstat2jira[bug.status] : 'To Do'
+        myBugStatus = (bzstat2jira[bug.status] ? bzstat2jira[bug.status] : 'To Do')
     }
+
+    myBugStatus;
 }
