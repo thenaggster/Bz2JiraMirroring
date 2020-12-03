@@ -16,12 +16,12 @@
     components_to_match = [];
     
     cnv_versions = ['2.4.0','2.4.1', '2.4.2','2.4.3','2.4.4','2.5.0','2.5.1'];
-    cnv_targeted_releases = ['2.5.2','2.6.0','2.6.1','2.7.0'];
+    cnv_targeted_releases = ['2.5.2','2.5.3','2.6.0','2.6.1','2.7.0'];
 
     ocp_versions = ['4.5','4.6'];
     ocp_targeted_releases = ['4.7.0','4.8.0'];
     targeted_releases = [];
-    
+
     if (bug.product == 'Container Native Virtualization (CNV)'){
         components_to_match = cnv_components_to_match;
         targeted_releases = cnv_targeted_releases;
@@ -33,14 +33,15 @@
         targeted_releases = ocp_targeted_releases;
         versions = ocp_versions;
     };
-    
-    cnv2_acked = false;
+
+    acks_to_match = ['devel_ack'];
+    ack_values_to_match = ['+'];
+    ack_matched = false;
     for (flag : bug.flags) {
-        cnv2_acked = cnv2_acked || flag.name=='cnv-2' && flag.status=='+';
-        if (cnv2_acked) {break;}
+        ack_matched = ack_matched || flag.name=~acks_to_match && flag.status=~ack_values_to_match;
+        if (ack_matched) {break;}
     };
-    cnv2_acked = true;
-    
+
     component_matched = false;
     for (mycomponent : bug.component) {
         component_matched = component_matched || mycomponent =~ components_to_match;
@@ -59,8 +60,9 @@
         version_matched = version_matched || myversion =~ versions;
         if (version_matched) {break;}
     };
-    
-    (bug.product == 'Container Native Virtualization (CNV)' && cnv2_acked && component_matched && (target_release_matched || version_matched)) || 
+
+    /* (bug.product == 'Container Native Virtualization (CNV)' && cnv2_acked && component_matched && (target_release_matched || version_matched)) ||  */
+    (bug.product == 'Container Native Virtualization (CNV)' && ack_matched && component_matched && (target_release_matched || version_matched)) || 
         (bug.product == 'OpenShift Container Platform' && component_matched && target_release_matched);
 }
 
